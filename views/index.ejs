@@ -1,0 +1,57 @@
+<%- include("./partials/header")%>
+
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                 Task Planner
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-5 col-md-4">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="text-center ">Today</h5>
+            </div>
+            <div class="card-body bg-light text-dark">
+                <form action="/add/todo" class="d-flex" method="POST">
+                    <input type="text" name="todo" id="" class="form-control" placeholder="Enter Task to do">
+                    <input type="submit" value="Add New Task" class="btn btn-md btn-primary mx-3">
+                </form>
+
+                <table class="table table-md table-hover mt-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">Check</th>
+                            <th scope="col">Tasks to do</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% todo.forEach(todos => { %>
+                            <tr>
+                                <th scope="row">
+                                    <div class="form-check">
+
+                                        <form action="/check/todo" method="POST">
+                                            <input class="form-check-input" type="checkbox" name="checkbox" value="<%= todos._id %>" id="flexCheckDefault" onChange="this.form.submit()">
+                                        </form>
+
+                                    </div>
+                                </th>
+                                <td id="task">
+                                    <%= todos.todo %>
+                                </td>
+                                <td><a href="/delete/todo/<%= todos._id %>" class="btn btn-danger btn-sm ">Delete</a></td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <%- include("./partials/footer")%>
